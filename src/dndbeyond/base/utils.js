@@ -233,6 +233,11 @@ async function buildAttackRoll(character, attack_source, name, description, prop
                 crit_damages[0] = damagesToCrits(character, ["8d12"])[0];
             if (roll_properties.name === "Jim’s Magic Missile")
                 crit_damages[0] = damagesToCrits(character, ["3d4"])[0];
+            const matchViciousAncestralWeapon = description.match(/When you roll a 20 on your attack roll with this magic weapon, the target takes an extra 2d6 damage of the weapon’s type./);
+            if (matchViciousAncestralWeapon) {
+                crit_damages.push = damagesToCrits(character, ["2d6"])[0];
+                crit_damage_types.push("Vicious (20 On The Attack Roll)");
+            }
             const matchViciousWeapon = description.match(/When you roll a 20 on your attack roll with this magic weapon, the target takes an extra (\d+) damage of the weapon’s type./);
             if (matchViciousWeapon) {
                 if (!damages.some(damage => damage === matchViciousWeapon[1])) {
